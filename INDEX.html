@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UTIP Metagrid — Karnataka Talent Grid</title>
+<meta name="description" content="UTIP — Unified Talent Identity Platform. One State. One Talent Identity. Verified Talent. Verified Future."/>
+<style>
+  :root{
+    --bg:#0B0F1A;
+    --bg-2:#0E172A;
+    --card:#121A2C;
+    --muted:#9FB3C8;
+    --text:#E9F2FF;
+    --primary:#00F5FF;
+    --accent:#FFD65B;
+    --success:#3CF284;
+    --danger:#FF6B6B;
+    --glass:rgba(255,255,255,0.06);
+    --glass-2:rgba(0,245,255,0.08);
+    --shadow:0 10px 40px rgba(0,0,0,0.5);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif}
+  a{color:var(--primary);text-decoration:none;cursor:pointer}
+  button{font-family:inherit}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:linear-gradient(180deg, rgba(11,15,26,0.9), rgba(11,15,26,0.2));
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+  .brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:.5px}
+  .brand .logo{
+    width:36px;height:36px;border-radius:50%;
+    background:conic-gradient(from 90deg,var(--primary),#58ffc7,#6bf0ff,var(--primary));
+    box-shadow:0 0 20px var(--primary), inset 0 0 20px rgba(255,255,255,0.15);
+    position:relative;
+  }
+  .brand small{display:block;color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.3px;margin-top:-2px}
+  .nav-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .nav a.btn{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);font-size:12px}
+  .cta{background:linear-gradient(90deg,var(--primary),#6be7ff);color:#001015;border:0;font-weight:700}
+  /* LOGIN INFO TOP RIGHT */
+  .login-info{
+    display:none;
+    padding:6px 10px;
+    border-radius:999px;
+    background:var(--glass);
+    border:1px solid rgba(255,255,255,0.16);
+    font-size:12px;
+    color:var(--muted);
+    gap:6px;
+    align-items:center;
+    white-space:nowrap;
+  }
+  .login-info strong{color:var(--text);font-weight:600}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;display:grid;place-items:center;padding-top:88px;overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(60vmax 60vmax at 20% 10%, rgba(0,245,255,0.10), transparent 60%),
+      radial-gradient(50vmax 50vmax at 80% 20%, rgba(255,214,91,0.09), transparent 60%),
+      radial-gradient(70vmax 70vmax at 50% 120%, rgba(0,245,255,0.08), transparent 60%),
+      linear-gradient(180deg, var(--bg), var(--bg-2));
+  }
+  canvas#particles{position:absolute;inset:0;opacity:.6}
+  .hero-content{position:relative;z-index:2;text-align:center}
+  .eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.15);background:var(--glass);backdrop-filter:blur(6px);font-size:12px;letter-spacing:.4px;color:var(--muted)}
+  h1{font-size:clamp(36px,5vw,64px);line-height:1.05;margin:16px 0}
+  .h1-accent{background:linear-gradient(90deg,var(--accent),#fff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 20px rgba(255,214,91,0.25)}
+  .sub{max-width:820px;margin:0 auto;color:#BFD2E6;font-size:clamp(14px,1.5vw,18px)}
+  .hero-cta{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .chip{padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.12);font-size:12px}
+  .stakeholder-buttons{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .stakeholder-buttons button{cursor:pointer}
+  /* METRICS */
+  .metrics{position:relative;z-index:2;margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .metric{padding:16px;border-radius:var(--radius);background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.12);box-shadow:var(--shadow)}
+  .metric strong{display:block;font-size:28px;letter-spacing:.3px}
+  .metric span{color:var(--muted);font-size:12px}
+  @media (max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.metrics{grid-template-columns:1fr}}
+  /* SECTION */
+  section{padding:90px 0;border-top:1px solid rgba(255,255,255,0.06)}
+  .sec-title{font-size:32px;margin:0 0 14px 0}
+  .lead{color:#C9DAEF;max-width:850px}
+  /* GRID CARDS */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px}
+  .grid-1{display:grid;grid-template-columns:1fr;gap:18px;margin-top:26px}
+  .card{border:1px solid rgba(255,255,255,0.12);background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.03));border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .card:before{content:"";position:absolute;inset:-2px;border-radius:inherit;background:radial-gradient(80% 60% at 0% 0%, var(--glass-2), transparent 60%);opacity:.35;pointer-events:none}
+  .card h3{margin:0 0 8px 0;font-size:18px}
+  .card h4{margin:0 0 6px 0;font-size:15px}
+  .card p{margin:0;color:#BFD2E6;font-size:14px;line-height:1.5}
+  .card ul{margin:8px 0 0 18px;padding:0;font-size:13px;color:#C9DAEF}
+  .pill{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:#001015;background:linear-gradient(90deg,var(--primary),#6be7ff);padding:6px 10px;border-radius:999px;font-weight:800;letter-spacing:.3px}
+  /* MAP MOCK */
+  .mapbox{margin-top:20px;height:420px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.12);background:
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px) 0 0/36px 36px,
+    linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px) 0 0/36px 36px,
+    radial-gradient(80vmax 40vmax at 80% 120%, rgba(0,245,255,0.1), transparent 60%),
+    radial-gradient(60vmax 30vmax at 10% -20%, rgba(255,214,91,0.08), transparent 60%),
+    linear-gradient(180deg, var(--card), #0b111f);
+    position:relative;overflow:hidden
+  }
+  .pulse{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--primary);box-shadow:0 0 18px var(--primary);opacity:.9}
+  .pulse:after{content:"";position:absolute;inset:-10px;border:2px solid var(--primary);border-radius:50%;animation:pulse 2.5s infinite}
+  @keyframes pulse{0%{transform:scale(0.6);opacity:.8}70%{transform:scale(2);opacity:0}100%{opacity:0}}
+  /* CALLOUT */
+  .callout{margin-top:22px;padding:16px;border-radius:14px;border:1px dashed rgba(255,255,255,0.18);background:rgba(0,245,255,0.06);font-size:14px}
+  /* FOOTER */
+  footer{padding:40px 0;border-top:1px solid rgba(255,255,255,0.06);background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.35))}
+  .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+  .credits{font-size:12px;color:var(--muted)}
+  .badge{display:inline-flex;gap:8px;align-items:center;padding:10px 12px;border-radius:12px;background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.03));border:1px solid rgba(255,255,255,0.12)}
+  .sr{position:absolute;left:-9999px}
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(16px);transition:all .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.show{opacity:1;transform:none}
+  /* BUTTONS */
+  .btn{display:inline-flex;gap:8px;align-items:center;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.04));color:var(--text);cursor:pointer;font-size:13px}
+  .btn.primary{background:linear-gradient(90deg,var(--primary),#6be7ff);color:#001015;border:0;font-weight:800}
+
+  /* AUTH / LOGIN / REGISTER OVERLAYS */
+  .auth-overlay{
+    position:fixed;top:0;left:0;right:0;bottom:0;
+    background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;z-index:5000;
+  }
+  .auth-box{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:26px;
+    border-radius:18px;
+    width:360px;
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .auth-box input, .auth-box select{
+    width:100%;padding:12px;margin:8px 0;
+    background:var(--glass);border-radius:12px;
+    border:1px solid rgba(255,255,255,0.15);color:var(--text);
+  }
+  .close-auth{
+    position:absolute;top:10px;right:10px;
+    background:none;border:0;color:#fff;font-size:20px;cursor:pointer;
+  }
+
+  /* PANELS LAYOUT */
+  .panel-shell{padding-top:88px;}
+  .panel-layout{display:grid;grid-template-columns:240px 1fr;gap:18px;align-items:flex-start}
+  .panel-nav{
+    border-radius:16px;
+    background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.12);
+    padding:14px;
+    position:sticky;
+    top:96px;
+  }
+  .panel-nav h3{margin:0 0 10px 0;font-size:16px}
+  .panel-nav button{
+    width:100%;margin-bottom:6px;text-align:left;font-size:13px;
+  }
+  .panel-main{
+    border-radius:16px;
+    background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.12);
+    padding:18px;
+    min-height:300px;
+  }
+  .panel-view{display:none}
+  .panel-view.active{display:block}
+
+  .field-row{display:flex;flex-wrap:wrap;gap:10px}
+  .field-row .field{flex:1 1 220px}
+  .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+  .field input,.field textarea{
+    width:100%;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);
+    background:rgba(0,0,0,0.25);color:var(--text);font-size:13px;
+  }
+  textarea{min-height:70px;resize:vertical}
+
+  .resume-box{
+    border-radius:16px;
+    background:#ffffff;
+    color:#111827;
+    padding:20px;
+    max-width:700px;
+    margin-top:10px;
+    font-size:13px;
+  }
+  .resume-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid #e5e7eb;padding-bottom:10px;margin-bottom:10px}
+  .resume-title{font-size:18px;font-weight:700}
+  .resume-section{margin-top:10px}
+  .resume-section h4{margin:0 0 4px 0;font-size:12px;text-transform:uppercase;color:#374151}
+  .resume-section p{margin:0;font-size:12px;color:#111827;white-space:pre-line}
+
+  /* Roarstar AI Button & Panel */
+  .ai-button{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(0,245,255,0.15) 40%, transparent 70%), linear-gradient(135deg,#00f5ff,#007bff);
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    display:grid;place-items:center;
+    cursor:pointer;
+    z-index:4000;
+  }
+  .ai-button span{font-size:11px;text-align:center;color:#00101a;font-weight:700}
+  .ai-panel{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    width:320px;
+    max-height:420px;
+    border-radius:18px;
+    background:var(--card);
+    border:1px solid rgba(255,255,255,0.16);
+    box-shadow:var(--shadow);
+    display:none;
+    flex-direction:column;
+    z-index:4001;
+  }
+  .ai-panel-header{
+    padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.1);
+    display:flex;align-items:center;justify-content:space-between;font-size:13px;
+  }
+  .ai-panel-body{
+    padding:10px 12px;font-size:12px;color:#C9DAEF;
+    overflow-y:auto;flex:1;
+  }
+  .ai-msg{margin-bottom:8px}
+  .ai-msg.me{text-align:right}
+  .ai-msg.me span{background:rgba(0,245,255,0.15);display:inline-block;padding:6px 8px;border-radius:10px}
+  .ai-msg.bot span{background:rgba(255,255,255,0.06);display:inline-block;padding:6px 8px;border-radius:10px}
+  .ai-panel-footer{
+    padding:8px 10px;border-top:1px solid rgba(255,255,255,0.1);display:flex;gap:6px;
+  }
+  .ai-panel-footer input{
+    flex:1;border-radius:999px;border:1px solid rgba(255,255,255,0.14);background:rgba(0,0,0,0.35);color:var(--text);font-size:12px;padding:6px 10px;
+  }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        UTIP <small>Karnataka Talent Grid</small>
+      </div>
+    </div>
+    <div class="nav-right">
+      <!-- Main menu as per spec -->
+      <a class="btn" onclick="showPublic()">Home</a>
+      <a class="btn" href="#about">About UTIP</a>
+      <a class="btn" onclick="openAuth('student')">Student Login</a>
+      <a class="btn" onclick="openAuth('college')">College Login</a>
+      <a class="btn" onclick="openAuth('employer')">Employer Login</a>
+      <a class="btn" onclick="openAuth('government')">Government Login</a>
+      <a class="btn" onclick="openAuth('agency')">Verification Agency Login</a>
+      <a class="btn" href="#publicDash">Public Dashboard</a>
+      <a class="btn" href="#help">Help & Support</a>
+      <div id="loginInfo" class="login-info"></div>
+    </div>
+  </div>
+</header>
+
+<!-- PUBLIC SHELL -->
+<div id="publicShell">
+<main id="home">
+  <!-- HOME -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="hero-content wrap">
+      <span class="eyebrow">Government of Karnataka • Digital Workforce Governance</span>
+      <h1>One State. <span class="h1-accent">One Talent Identity.</span></h1>
+      <p class="sub">
+        Unified Talent Identity Platform (UTIP) — a verified, statewide digital identity for every student and professional.<br/>
+        Verified Talent. Verified Future.
+      </p>
+
+      <!-- UTID login options -->
+      <div class="hero-cta">
+        <button class="btn primary" onclick="openAuth('student')">Individual / Student Login</button>
+        <button class="btn" onclick="openAuth('college')">College / University Login</button>
+        <button class="btn" onclick="openAuth('employer')">Employer / Company Login</button>
+        <button class="btn" onclick="openAuth('government')">Government Login</button>
+        <button class="btn" onclick="openAuth('agency')">Verification Agency Login</button>
+      </div>
+
+      <!-- Stakeholder quick buttons -->
+      <div class="stakeholder-buttons">
+        <button class="btn" onclick="document.getElementById('studentPublic').scrollIntoView({behavior:'smooth'})">Students</button>
+        <button class="btn" onclick="document.getElementById('collegePublic').scrollIntoView({behavior:'smooth'})">Colleges</button>
+        <button class="btn" onclick="document.getElementById('employerPublic').scrollIntoView({behavior:'smooth'})">Companies</button>
+        <button class="btn" onclick="document.getElementById('governmentPublic').scrollIntoView({behavior:'smooth'})">Government</button>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics wrap">
+        <div class="metric"><strong data-count="1500000">0</strong><span>Verified Profiles (target)</span></div>
+        <div class="metric"><strong data-count="40">0</strong><span>Faster Hiring (%)</span></div>
+        <div class="metric"><strong data-count="70">0</strong><span>Govt. Savings (₹ Cr / yr)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT UTIP -->
+  <section id="about" class="wrap">
+    <h2 class="sec-title reveal">About UTIP</h2>
+    <p class="lead reveal">
+      UTIP — Unified Talent Identity Platform — creates a single, verified talent layer for Karnataka.
+      One UTID, one trusted resume, discoverable across colleges, companies and government.
+    </p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <span class="pill">Why UTIP Exists</span>
+        <p>To eliminate fake resumes, reduce verification costs, accelerate hiring and give every citizen a verifiable digital career identity.</p>
+      </article>
+      <article class="card reveal">
+        <span class="pill">How UTIP Works</span>
+        <p>Students and professionals are issued a <strong>UTID-KA-XXXXXX</strong>, colleges verify education, employers verify work, and government visualizes talent through district heatmaps.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PUBLIC PANELS SUMMARY (STUDENT / COLLEGE / EMPLOYER / GOVT) -->
+  <section id="studentPublic" class="wrap">
+    <h2 class="sec-title reveal">Student / Professional Panel (Overview)</h2>
+    <p class="lead reveal">University-issued login, auto-generated UTID-KA, digital resume and AI-powered career insights.</p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Login Rules</h3>
+        <ul>
+          <li>Username = USN (College Registration Number)</li>
+          <li>Password provided by college</li>
+          <li>2FA on first login, mandatory password update</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>Dashboard Features</h3>
+        <ul>
+          <li>My UTID (UTID-KA-XXXXXX)</li>
+          <li>Digital Resume (PDF + online, multiple templates)</li>
+          <li>Profile Builder & Records</li>
+          <li>Job Opportunities & Career Insights</li>
+          <li>AI Career Coach (Roarstar Mentor AI – future)</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="collegePublic" class="wrap">
+    <h2 class="sec-title reveal">College / University Panel (Overview)</h2>
+    <p class="lead reveal">Institution controls student accounts, verifies data, tracks alumni and handles drives.</p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Key Controls</h3>
+        <ul>
+          <li>Manage student accounts (issue, reset, activate/deactivate)</li>
+          <li>Student verification panel</li>
+          <li>Bulk uploads of marks & certificates</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>Analytics & Placement</h3>
+        <ul>
+          <li>Alumni tracking & employment data</li>
+          <li>Placement analytics & skill distribution</li>
+          <li>Drive requests & compliance center</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="employerPublic" class="wrap">
+    <h2 class="sec-title reveal">Employer / Company Panel (Overview)</h2>
+    <p class="lead reveal">Super search filters, AI talent finder, job posting, interview center and offer registry.</p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Talent Search Filters</h3>
+        <ul>
+          <li>Skills (keywords, category, level, verified/self)</li>
+          <li>Education (degree, branch, tier, CGPA, district)</li>
+          <li>Experience, notice period, verification status</li>
+          <li>Integrity score, offer acceptance probability</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>Company Dashboard</h3>
+        <ul>
+          <li>Search candidates & advanced filters</li>
+          <li>AI Talent Finder & Smart Voice Search (future)</li>
+          <li>Job posting, interview scheduler</li>
+          <li>Offer registry, compliance center</li>
+          <li>Campus suite & hiring analytics</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="governmentPublic" class="wrap">
+    <h2 class="sec-title reveal">Government / Admin Panel (Overview)</h2>
+    <p class="lead reveal">State-level view of talent, institutions, companies and fraud analytics.</p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Dashboards</h3>
+        <ul>
+          <li>State talent dashboard</li>
+          <li>District heatmaps & Talent Grid Index</li>
+          <li>Sector-wise skill distribution</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>Controls</h3>
+        <ul>
+          <li>College & company monitoring</li>
+          <li>Fraud detection & data reliability</li>
+          <li>Approve institutions & companies</li>
+          <li>Scholarship & policy analytics (future)</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- PUBLIC DASHBOARD / HEATMAP -->
+  <section id="publicDash" class="wrap">
+    <h2 class="sec-title reveal">Public Dashboards</h2>
+    <p class="lead reveal">District Skill Index and Talent Grid visuals (demo).</p>
+    <div class="mapbox reveal" id="mapbox" role="img" aria-label="Animated abstract talent map">
+      <!-- Pulses added by JS -->
+    </div>
+    <div class="callout reveal" id="mapreadout">
+      Hover or tap a pulse to preview a district snapshot.
+    </div>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>What is UTIP?</h3>
+        <p>Public-friendly explanation for students, parents and citizens.</p>
+      </article>
+      <article class="card reveal">
+        <h3>Success Stories</h3>
+        <p>Real profiles, verified journeys and impact across districts.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- HELP & SUPPORT -->
+  <section id="help" class="wrap">
+    <h2 class="sec-title reveal">Help & Support</h2>
+    <p class="lead reveal">FAQs, onboarding guides and Roarstar AI assistance.</p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>Support Channels</h3>
+        <ul>
+          <li>UTID Helpdesk</li>
+          <li>College onboarding help</li>
+          <li>Employer onboarding</li>
+          <li>Verification agency support</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>Roarstar AI Assistant 🔵</h3>
+        <ul>
+          <li>Answers UTIP questions</li>
+          <li>Helps navigate the website</li>
+          <li>Guides employers on candidate search</li>
+          <li>Helps colleges verify data</li>
+          <li>Helps students build digital resumes</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- FUTURISTIC UPGRADES -->
+  <section id="future" class="wrap">
+    <h2 class="sec-title reveal">Futuristic Upgrades — Powered by Roarstar</h2>
+    <p class="lead reveal">
+      UTIP is not just a verification layer — it evolves into a full career and talent ecosystem with AI, gamification, blockchain and global integration.
+    </p>
+    <div class="grid-2">
+      <article class="card reveal">
+        <h3>For Students & Professionals</h3>
+        <ul>
+          <li>🧠 <strong>AI Career Coach (Roarstar Mentor AI)</strong> — guidance, resume tips, mock interviews.</li>
+          <li>📊 <strong>My Skill Gap</strong> — AI compares your skills vs industry requirements.</li>
+          <li>🏆 <strong>Digital Achievement Badges</strong> — Top Scorer, Best Project, Verified Internships, Zero Backlog.</li>
+          <li>🧾 <strong>Multi-template Digital Resume</strong> — Minimal, Modern, Corporate, AI-enhanced layouts.</li>
+          <li>🗂️ <strong>Portfolio Website Builder</strong> — projects, GitHub, videos, achievements.</li>
+          <li>📈 <strong>Personality & Aptitude Testing</strong> — shown as verified scores on resume.</li>
+          <li>🕹️ <strong>Gamification System</strong> — points for learning, badges, completions.</li>
+          <li>🌐 <strong>Multi-language Support</strong> — Kannada, English, Hindi and more.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>For Employers & Colleges</h3>
+        <ul>
+          <li>🎙️ <strong>Smart Voice Search</strong> — “Show me Python developers in Tumakuru”.</li>
+          <li>🗺️ <strong>Talent Heatmaps</strong> — high-skill clusters, fresher vs experienced ratio.</li>
+          <li>📑 <strong>College Scorecards & Ranking</strong> — based on placement, skills & speed.</li>
+          <li>🔄 <strong>Auto Background Verification</strong> — cross-checks all claims.</li>
+          <li>🧿 <strong>Fake Document Auto-Flagging</strong> — AI detects tampering & inconsistency.</li>
+          <li>🧾 <strong>Automated Offer Letter Builder</strong> — generate verified digital offers.</li>
+          <li>👥 <strong>Employer Watchlist</strong> — track favourite candidates & alerts.</li>
+          <li>📡 <strong>College Mobile Apps</strong> — drive alerts, quick verifications.</li>
+        </ul>
+      </article>
+      <article class="card reveal">
+        <h3>For Government & Ecosystem</h3>
+        <ul>
+          <li>🏛️ <strong>Scholarship Integration</strong> — eligibility checker & one-click apply via UTID.</li>
+          <li>🧾 <strong>Secure Transcript Viewer</strong> — verified academics with watermark.</li>
+          <li>👥 <strong>Peer Comparison Tools</strong> — college, district, branch level benchmarks.</li>
+          <li>🧩 <strong>Addon Marketplace</strong> — AI interview prep, resume boosters, tests.</li>
+          <li>🔒 <strong>Blockchain Verification Layer</strong> — 0% fraud, global acceptance.</li>
+          <li>🧩 <strong>Unified Event System</strong> — job fairs, drives, hackathons, workshops.</li>
+          <li>🤝 <strong>Alumni Network Module</strong> — connect students, mentors & employers.</li>
+          <li>🌍 <strong>National & Global Integration</strong> — LinkedIn, Naukri, Skill India, GCC.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</main>
+</div><!-- /publicShell -->
+
+<!-- STUDENT / PROFESSIONAL PANEL -->
+<section id="studentPanel" class="panel-shell" style="display:none">
+  <div class="wrap panel-layout">
+    <aside class="panel-nav">
+      <h3>Student Panel</h3>
+      <button class="btn" onclick="setStudentView('dashboard')">Dashboard</button>
+      <button class="btn" onclick="setStudentView('profile')">Profile Builder</button>
+      <button class="btn" onclick="setStudentView('records')">My Records</button>
+      <button class="btn" onclick="setStudentView('resume')">Digital Resume</button>
+      <button class="btn" onclick="setStudentView('portfolio')">Portfolio Preview</button>
+      <button class="btn" onclick="setStudentView('jobs')">Job Opportunities</button>
+      <button class="btn" onclick="setStudentView('insights')">Career Insights & Skill Gap</button>
+      <button class="btn" onclick="alert('Use Roarstar AI Assistant 🔵 for Mentor-style Q&A.')">AI Career Coach (via Roarstar AI)</button>
+    </aside>
+    <div class="panel-main">
+      <div id="studentView-dashboard" class="panel-view active">
+        <h2>Welcome, <span id="studentNameDisplay">Student</span></h2>
+        <p>Your UTID: <strong id="studentUTIDDisplay">—</strong></p>
+        <div class="grid-2" style="margin-top:16px">
+          <article class="card">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a onclick="setStudentView('resume')">View Digital Resume</a></li>
+              <li><a onclick="setStudentView('profile')">Update Profile & Skills</a></li>
+              <li><a onclick="setStudentView('portfolio')">See Portfolio Preview</a></li>
+              <li><a onclick="setStudentView('jobs')">View Job Opportunities</a></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Status</h3>
+            <p><strong>Verification Status:</strong> Demo mode (for prototype)</p>
+            <p><strong>Resume:</strong> Auto-updates when you save profile. PDF layout uses your selected template.</p>
+          </article>
+        </div>
+      </div>
+
+      <div id="studentView-profile" class="panel-view">
+        <h2>Profile Builder</h2>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:10px">
+          Fill your details — UTIP will use this to generate your Digital Resume and Portfolio. Colleges and employers can see verified sections.
+        </p>
+        <div class="field-row">
+          <div class="field">
+            <label>Name</label>
+            <input id="stu_name" type="text" placeholder="Full Name">
+          </div>
+          <div class="field">
+            <label>Photograph URL</label>
+            <input id="stu_photo" type="text" placeholder="Link to profile photo (optional)">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Contact Email</label>
+            <input id="stu_email" type="email" placeholder="example@domain.com">
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input id="stu_phone" type="text" placeholder="+91-XXXXXXX">
+          </div>
+        </div>
+        <div class="field">
+          <label>Address</label>
+          <input id="stu_address" type="text" placeholder="City, District, State">
+        </div>
+        <div class="field">
+          <label>Education (Verified when college approves)</label>
+          <textarea id="stu_education" placeholder="BE CSE, 2024, CGPA 8.5..."></textarea>
+        </div>
+        <div class="field">
+          <label>Work Experience</label>
+          <textarea id="stu_work" placeholder="Internships, full-time roles..."></textarea>
+        </div>
+        <div class="field">
+          <label>Skills & Skill Badges</label>
+          <textarea id="stu_skills" placeholder="Java, React, SQL, Communication..."></textarea>
+        </div>
+        <div class="field">
+          <label>Certifications</label>
+          <textarea id="stu_certs" placeholder="Course name, issuer, year..."></textarea>
+        </div>
+        <div class="field">
+          <label>Achievements</label>
+          <textarea id="stu_achievements" placeholder="Hackathons, awards, rankings..."></textarea>
+        </div>
+        <div class="field">
+          <label>Digital Achievement Badges (keywords)</label>
+          <textarea id="stu_badges" placeholder="Top Scorer, Best Project, Verified Internship..."></textarea>
+        </div>
+        <div class="field">
+          <label>Projects</label>
+          <textarea id="stu_projects" placeholder="Project title, tech stack, outcome... (use blank line between projects)"></textarea>
+        </div>
+        <div class="field">
+          <label>Languages</label>
+          <textarea id="stu_languages" placeholder="English, Kannada, Hindi..."></textarea>
+        </div>
+        <button class="btn primary" style="margin-top:10px" onclick="saveStudentProfile()">Save Profile</button>
+      </div>
+
+      <div id="studentView-records" class="panel-view">
+        <h2>My Records</h2>
+        <p style="font-size:13px;color:var(--muted)">In a full system, this page would show granular educational records, documents and verification audit logs. For now, it reflects your profile builder data.</p>
+        <button class="btn" onclick="setStudentView('profile')">Go to Profile Builder</button>
+      </div>
+
+      <div id="studentView-resume" class="panel-view">
+        <h2>Digital Resume</h2>
+        <p style="font-size:13px;color:var(--muted)">This is your auto-generated UTIP Digital Resume. Choose a template and download as PDF.</p>
+        <div class="field-row" style="margin-top:8px">
+          <div class="field" style="max-width:220px">
+            <label>Resume Template</label>
+            <select id="resumeTemplateSelect" onchange="saveResumeTemplate()" style="width:100%;padding:8px;border-radius:10px;background:rgba(0,0,0,0.35);color:var(--text);border:1px solid rgba(255,255,255,0.2);font-size:12px">
+              <option value="minimal">Minimal</option>
+              <option value="modern">Modern</option>
+              <option value="corporate">Corporate</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn primary" style="margin-top:6px" onclick="downloadResumePDF()">Download as PDF</button>
+        <div id="resumePreview" class="resume-box">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <div id="studentView-portfolio" class="panel-view">
+        <h2>Portfolio Preview</h2>
+        <p style="font-size:13px;color:var(--muted)">This is a one-page portfolio-style view that companies might see in future UTIP portfolio links.</p>
+        <div id="portfolioPreview" class="card" style="margin-top:10px"></div>
+      </div>
+
+      <div id="studentView-jobs" class="panel-view">
+        <h2>Job Opportunities (Demo)</h2>
+        <div class="grid-1">
+          <article class="card">
+            <h3>Example: Junior Software Developer</h3>
+            <p>Location: Bengaluru • CTC: 6 LPA • Skills: Java, Spring, SQL</p>
+          </article>
+          <article class="card">
+            <h3>Example: Data Analyst Intern</h3>
+            <p>Location: Mysuru • Stipend: 20k • Skills: Python, Excel, PowerBI</p>
+          </article>
+        </div>
+      </div>
+
+      <div id="studentView-insights" class="panel-view">
+        <h2>Career Insights & Skill Gap (Demo)</h2>
+        <p style="font-size:13px;color:var(--muted)">
+          In production, Roarstar Mentor AI will analyse your skills, compare with industry data, and guide you with personalised upskilling plans.
+        </p>
+        <article id="skillGapBox" class="card" style="margin-top:10px"></article>
+        <div class="grid-2" style="margin-top:16px">
+          <article class="card">
+            <h3>AI Career Coach (Roarstar Mentor AI)</h3>
+            <ul>
+              <li>Career guidance & domain selection.</li>
+              <li>Resume improvement suggestions.</li>
+              <li>Job preparation & interview tips.</li>
+              <li>Mock interview simulations.</li>
+              <li>Course recommendations to close skill gaps.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Alerts, Badges & Gamification</h3>
+            <ul>
+              <li>Real-time alerts when companies view your profile.</li>
+              <li>Notifications for matching jobs & verification updates.</li>
+              <li>Digital badges: Top Scorer, Best Project, Verified Internships.</li>
+              <li>Points for completing resume, uploading documents & tests.</li>
+              <li>Future: portfolio site builder + AI evaluation of your projects.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLEGE / UNIVERSITY PANEL -->
+<section id="collegePanel" class="panel-shell" style="display:none">
+  <div class="wrap panel-layout">
+    <aside class="panel-nav">
+      <h3>College Panel</h3>
+      <button class="btn" onclick="setCollegeView('dashboard')">Dashboard</button>
+      <button class="btn" onclick="setCollegeView('students')">Manage Student Accounts</button>
+      <button class="btn" onclick="setCollegeView('verify')">Student Verification Panel</button>
+      <button class="btn" onclick="setCollegeView('alumni')">Alumni Tracking</button>
+      <button class="btn" onclick="setCollegeView('reports')">Reports & Analytics</button>
+      <button class="btn" onclick="setCollegeView('drives')">Drive Requests</button>
+      <button class="btn" onclick="setCollegeView('compliance')">Compliance Center</button>
+      <button class="btn" onclick="alert('Roarstar AI Button 🔵 can assist with verification & drive planning.')">Roarstar AI Help</button>
+    </aside>
+    <div class="panel-main">
+      <div id="collegeView-dashboard" class="panel-view active">
+        <h2>College Dashboard</h2>
+        <p style="font-size:13px;color:var(--muted)">Issue student accounts, verify records and monitor placements.</p>
+      </div>
+
+      <div id="collegeView-students" class="panel-view">
+        <h2>Manage Student Accounts</h2>
+        <p style="font-size:13px;color:var(--muted)">Create student login credentials. Username must be USN.</p>
+        <div class="field-row">
+          <div class="field">
+            <label>USN (Username)</label>
+            <input id="col_stu_usn" type="text" placeholder="1SI23CS001">
+          </div>
+          <div class="field">
+            <label>Temp Password</label>
+            <input id="col_stu_pass" type="text" placeholder="Initial@123">
+          </div>
+        </div>
+        <button class="btn primary" style="margin-top:8px" onclick="collegeCreateStudent()">Create Student Account</button>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px">On first login, system can force password change (prototype not enforcing).</p>
+        <h3 style="margin-top:18px;font-size:15px">Existing Students</h3>
+        <div id="collegeStudentList" style="font-size:12px;margin-top:6px"></div>
+      </div>
+
+      <div id="collegeView-verify" class="panel-view">
+        <h2>Student Verification Panel</h2>
+        <p style="font-size:13px;color:var(--muted)">In full system, this would show pending marksheets, certificates and documents with approve/reject workflows.</p>
+      </div>
+
+      <div id="collegeView-alumni" class="panel-view">
+        <h2>Alumni Tracking</h2>
+        <p style="font-size:13px;color:var(--muted)">Employment data, placement analytics and region-wise alumni stats will appear here.</p>
+      </div>
+
+      <div id="collegeView-reports" class="panel-view">
+        <h2>Reports & Scorecards</h2>
+        <p style="font-size:13px;color:var(--muted)">College performance, verification statistics and skill distribution dashboards.</p>
+      </div>
+
+      <div id="collegeView-drives" class="panel-view">
+        <h2>Placement Officer Panel</h2>
+        <p style="font-size:13px;color:var(--muted)">Accept company drive requests, download shortlisted lists, and coordinate drives.</p>
+      </div>
+
+      <div id="collegeView-compliance" class="panel-view">
+        <h2>Compliance Center</h2>
+        <p style="font-size:13px;color:var(--muted)">Pending verifications and fraud suspicion alerts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMPLOYER / COMPANY PANEL -->
+<section id="employerPanel" class="panel-shell" style="display:none">
+  <div class="wrap panel-layout">
+    <aside class="panel-nav">
+      <h3>Employer Panel</h3>
+      <button class="btn" onclick="setEmployerView('dashboard')">Dashboard</button>
+      <button class="btn" onclick="setEmployerView('search')">Search Talent</button>
+      <button class="btn" onclick="setEmployerView('filters')">Advanced Filters</button>
+      <button class="btn" onclick="setEmployerView('shortlist')">Shortlist & Compare</button>
+      <button class="btn" onclick="setEmployerView('jobs')">Job Posting Center</button>
+      <button class="btn" onclick="setEmployerView('interview')">Interview Center</button>
+      <button class="btn" onclick="setEmployerView('offers')">Offer Registry</button>
+      <button class="btn" onclick="setEmployerView('compliance')">Compliance Center</button>
+      <button class="btn" onclick="setEmployerView('campus')">Campus Suite</button>
+      <button class="btn" onclick="setEmployerView('analytics')">Hiring Analytics</button>
+      <button class="btn" onclick="alert('Use Roarstar AI Assistant 🔵 for voice-like chat queries on talent.')">Roarstar AI Smart Chatbot</button>
+    </aside>
+    <div class="panel-main">
+      <div id="employerView-dashboard" class="panel-view active">
+        <h2>Employer Dashboard</h2>
+        <p style="font-size:13px;color:var(--muted)">Use UTIP to search verified candidates, manage offers and run analytics.</p>
+      </div>
+
+      <div id="employerView-search" class="panel-view">
+        <h2>Search Candidates (Demo with Real Data)</h2>
+        <p style="font-size:13px;color:var(--muted)">This search reads student data stored in the browser (local prototype). Use the College Panel to create student logins, then log in as student and fill profile.</p>
+        <div class="field-row">
+          <div class="field">
+            <label>Skill Keyword</label>
+            <input id="emp_search_skill" type="text" placeholder="Java, React, Data Science">
+          </div>
+          <div class="field">
+            <label>Location (District)</label>
+            <input id="emp_search_location" type="text" placeholder="Bengaluru, Mysuru...">
+          </div>
+        </div>
+        <div class="field" style="margin-top:6px">
+          <label>Search by UTID (optional)</label>
+          <input id="emp_search_utid" type="text" placeholder="UTID-KA-123456">
+        </div>
+        <button class="btn primary" style="margin-top:8px" onclick="runEmployerSearch()">Run Search</button>
+        <div id="employerSearchResults" style="margin-top:10px;font-size:12px"></div>
+      </div>
+
+      <div id="employerView-filters" class="panel-view">
+        <h2>Advanced Filters</h2>
+        <p style="font-size:13px;color:var(--muted)">Skill, education, experience, behaviour, location and diversity filters as specified.</p>
+      </div>
+
+      <div id="employerView-shortlist" class="panel-view">
+        <h2>Shortlist & Compare</h2>
+        <p style="font-size:13px;color:var(--muted)">Shortlisting, comparing UTIDs and exporting to HRMS.</p>
+      </div>
+
+      <div id="employerView-jobs" class="panel-view">
+        <h2>Job Posting Center</h2>
+        <p style="font-size:13px;color:var(--muted)">Create job roles, auto-fill skills using AI and track visibility.</p>
+      </div>
+
+      <div id="employerView-interview" class="panel-view">
+        <h2>Interview Center</h2>
+        <p style="font-size:13px;color:var(--muted)">Scheduling, panel configuration and integration with calendars.</p>
+      </div>
+
+      <div id="employerView-offers" class="panel-view">
+        <h2>Offer Registry</h2>
+        <p style="font-size:13px;color:var(--muted)">Track offers, acceptance, joining and integrity scores.</p>
+      </div>
+
+      <div id="employerView-compliance" class="panel-view">
+        <h2>Company Compliance Center</h2>
+        <p style="font-size:13px;color:var(--muted)">Data completeness, fraud flags and UTIP compliance status.</p>
+      </div>
+
+      <div id="employerView-campus" class="panel-view">
+        <h2>Campus Hiring Suite</h2>
+        <p style="font-size:13px;color:var(--muted)">Plan district-wise drives and coordinate with colleges.</p>
+      </div>
+
+      <div id="employerView-analytics" class="panel-view">
+        <h2>Hiring Analytics Dashboard</h2>
+        <p style="font-size:13px;color:var(--muted)">Time-to-hire, diversity stats, salary insights and college performance metrics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNMENT / ADMIN PANEL -->
+<section id="governmentPanel" class="panel-shell" style="display:none">
+  <div class="wrap panel-layout">
+    <aside class="panel-nav">
+      <h3>Government Panel</h3>
+      <button class="btn" onclick="setGovView('dashboard')">State Dashboard</button>
+      <button class="btn" onclick="setGovView('district')">District Analytics</button>
+      <button class="btn" onclick="setGovView('institutions')">Institution Monitoring</button>
+      <button class="btn" onclick="setGovView('fraud')">Fraud Detection</button>
+      <button class="btn" onclick="setGovView('policy')">Policy Insights</button>
+      <button class="btn" onclick="setGovView('reports')">Reports & Exports</button>
+      <button class="btn" onclick="alert('Roarstar AI Governance Assistant available via 🔵 button.')">Roarstar AI Governance Assistant</button>
+    </aside>
+    <div class="panel-main">
+      <div id="govView-dashboard" class="panel-view active">
+        <h2>State Talent Dashboard</h2>
+        <p style="font-size:13px;color:var(--muted)">High-level view of verified profiles, districts and sectors.</p>
+      </div>
+      <div id="govView-district" class="panel-view">
+        <h2>District Analytics</h2>
+        <p style="font-size:13px;color:var(--muted)">District skill density, employment and talent pipeline forecasts.</p>
+      </div>
+      <div id="govView-institutions" class="panel-view">
+        <h2>Institution Monitoring</h2>
+        <p style="font-size:13px;color:var(--muted)">College and company monitoring, program outcomes and compliance.</p>
+      </div>
+      <div id="govView-fraud" class="panel-view">
+        <h2>Fraud Detection System</h2>
+        <p style="font-size:13px;color:var(--muted)">Fake certificate analytics, risk scores and investigation tools.</p>
+      </div>
+      <div id="govView-policy" class="panel-view">
+        <h2>Policy Insights</h2>
+        <p style="font-size:13px;color:var(--muted)">Evidence-based insights to design schemes and campaigns.</p>
+      </div>
+      <div id="govView-reports" class="panel-view">
+        <h2>Reports</h2>
+        <p style="font-size:13px;color:var(--muted)">Downloadable reports, dashboards and curated analytics packs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERIFICATION AGENCY PANEL -->
+<section id="agencyPanel" class="panel-shell" style="display:none">
+  <div class="wrap panel-layout">
+    <aside class="panel-nav">
+      <h3>Verification Agency Panel</h3>
+      <button class="btn" onclick="setAgencyView('dashboard')">Dashboard</button>
+      <button class="btn" onclick="setAgencyView('cases')">Assigned Cases</button>
+      <button class="btn" onclick="setAgencyView('edu')">Education Verification</button>
+      <button class="btn" onclick="setAgencyView('work')">Employment Verification</button>
+      <button class="btn" onclick="setAgencyView('tools')">Document Tools</button>
+      <button class="btn" onclick="setAgencyView('logs')">Audit Logs</button>
+      <button class="btn" onclick="setAgencyView('alerts')">Fraud Alerts</button>
+      <button class="btn" onclick="setAgencyView('reports')">Verification Reports</button>
+      <button class="btn" onclick="alert('Roarstar AI can assist your verification via 🔵 button.')">Roarstar AI Verification Help</button>
+    </aside>
+    <div class="panel-main">
+      <div id="agencyView-dashboard" class="panel-view active">
+        <h2>Agency Dashboard</h2>
+        <p style="font-size:13px;color:var(--muted)">View workload, SLAs and fraud risk indicators.</p>
+      </div>
+      <div id="agencyView-cases" class="panel-view">
+        <h2>Assigned Verifications</h2>
+        <p style="font-size:13px;color:var(--muted)">List of assigned UTIDs and documents to verify.</p>
+      </div>
+      <div id="agencyView-edu" class="panel-view">
+        <h2>Education Verification</h2>
+        <p style="font-size:13px;color:var(--muted)">Tools to validate marksheets, degrees and transcripts.</p>
+      </div>
+      <div id="agencyView-work" class="panel-view">
+        <h2>Employment Verification</h2>
+        <p style="font-size:13px;color:var(--muted)">Employer references and experience verification workflows.</p>
+      </div>
+      <div id="agencyView-tools" class="panel-view">
+        <h2>Document Authenticity Tools</h2>
+        <p style="font-size:13px;color:var(--muted)">Watermark checks, QR scans and integrity scoring (future).</p>
+      </div>
+      <div id="agencyView-logs" class="panel-view">
+        <h2>Audit Logs</h2>
+        <p style="font-size:13px;color:var(--muted)">Every verification step recorded for governance.</p>
+      </div>
+      <div id="agencyView-alerts" class="panel-view">
+        <h2>Fraud Alerts</h2>
+        <p style="font-size:13px;color:var(--muted)">High-risk profiles and fraud suspicion alerts.</p>
+      </div>
+      <div id="agencyView-reports" class="panel-view">
+        <h2>Verification Reports</h2>
+        <p style="font-size:13px;color:var(--muted)">Submit verification outcomes to UTIP.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footgrid">
+    <div>
+      <h3 style="margin:0 0 8px 0">Karnataka Talent Grid — UTIP</h3>
+      <p class="credits">
+        Developed by <strong>Roarstar (AI)</strong> — by <strong>Roarstar Technologies</strong>, powered by <strong>Roarstar Group</strong>.
+        Founder & Chairman: <strong>Manu Nataraju</strong>.
+      </p>
+      <p class="credits">© <span id="year"></span> Government of Karnataka • All Rights Reserved • DPDP Compliant</p>
+    </div>
+    <div>
+      <div class="badge">Privacy • Security • Compliance</div><br/><br/>
+      <div class="badge">Beyond Bangalore • Tier 2/3</div>
+    </div>
+    <div>
+      <div class="badge">Aadhaar • DigiLocker • Skill India</div><br/><br/>
+      <div class="badge">KDEM • NASSCOM • GCC</div>
+    </div>
+  </div>
+</footer>
+
+<!-- LOGIN / REGISTER PORTAL -->
+<div id="authOverlay" class="auth-overlay" style="display:none">
+  <div class="auth-box">
+    <h2 id="authTitle">Login</h2>
+
+    <div id="loginForm">
+      <select id="loginRole">
+        <option value="student">Student</option>
+        <option value="college">College</option>
+        <option value="employer">Employer</option>
+        <option value="government">Government</option>
+        <option value="agency">Verification Agency</option>
+      </select>
+      <input type="text" id="loginUser" placeholder="Username (USN for students)">
+      <input type="password" id="loginPass" placeholder="Password">
+      <button onclick="loginUser()" class="btn primary" style="width:100%;margin-top:6px">Login</button>
+      <p style="margin-top:10px;font-size:12px">
+        For prototype, non-student roles may self-register. Students should be created by colleges.
+      </p>
+      <p style="margin-top:4px;font-size:12px">
+        Need an account? <a onclick="showRegister()">Register (Prototype)</a>
+      </p>
+    </div>
+
+    <div id="registerForm" style="display:none">
+      <select id="regType">
+        <option value="">Select Role</option>
+        <option value="student">Student (demo)</option>
+        <option value="college">College</option>
+        <option value="employer">Employer</option>
+        <option value="government">Government</option>
+        <option value="agency">Verification Agency</option>
+      </select>
+      <input type="text" id="regUser" placeholder="Username">
+      <input type="password" id="regPass" placeholder="Password">
+      <button onclick="registerUser()" class="btn primary" style="width:100%">Register</button>
+      <p style="margin-top:10px;font-size:12px">Already have an account? <a onclick="showLogin()">Login</a></p>
+    </div>
+
+    <button class="close-auth" onclick="closeAuth()">✕</button>
+  </div>
+</div>
+
+<!-- Roarstar AI Assistant -->
+<div id="aiPanel" class="ai-panel">
+  <div class="ai-panel-header">
+    <span>Roarstar AI Assistant 🔵</span>
+    <button onclick="toggleAI()" style="background:none;border:0;color:#fff;cursor:pointer;font-size:16px">✕</button>
+  </div>
+  <div id="aiBody" class="ai-panel-body">
+    <div class="ai-msg bot"><span>Namaskara 🙌, I’m Roarstar AI. I can help you navigate UTIP, explain features and guide students, colleges and employers.</span></div>
+  </div>
+  <div class="ai-panel-footer">
+    <input id="aiInput" type="text" placeholder="Ask me about UTIP..." onkeydown="if(event.key==='Enter'){sendAIMessage()}">
+    <button class="btn primary" style="padding:6px 10px;font-size:11px" onclick="sendAIMessage()">Send</button>
+  </div>
+</div>
+
+<div class="ai-button" onclick="toggleAI()">
+  <span>AI</span>
+</div>
+
+<!-- jsPDF for Resume PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+// Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Particle background
+const cnv = document.getElementById('particles');
+const ctx = cnv.getContext('2d');
+let w, h, particles;
+const PCOUNT = 120;
+function resize(){
+  w = cnv.width = window.innerWidth;
+  h = cnv.height = Math.max(520, window.innerHeight);
+}
+window.addEventListener('resize', resize); resize();
+function spawn(){
+  particles = Array.from({length:PCOUNT}, () => ({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    vx:(Math.random()-.5)*0.5,
+    vy:(Math.random()-.5)*0.5,
+    r: Math.random()*1.8+0.6
+  }));
+}
+spawn();
+function tick(){
+  ctx.clearRect(0,0,w,h);
+  for(const p of particles){
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>w) p.vx*=-1;
+    if(p.y<0||p.y>h) p.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,245,255,0.55)';
+    ctx.fill();
+  }
+  // lines
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const a=particles[i], b=particles[j];
+      const dx=a.x-b.x, dy=a.y-b.y, d=Math.hypot(dx,dy);
+      if(d<140){
+        ctx.strokeStyle='rgba(0,245,255,'+(1-d/140)*0.25+')';
+        ctx.lineWidth=1;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+
+// Animated counters
+const counters = document.querySelectorAll('[data-count]');
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = +el.getAttribute('data-count');
+      const duration = 1600;
+      const start = performance.now();
+      function step(t){
+        const p = Math.min((t-start)/duration,1);
+        const val = Math.floor(target * (0.2 + 0.8*(p*p*(3-2*p))));
+        el.textContent = target>999 ? val.toLocaleString('en-IN') : val;
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      counterObserver.unobserve(el);
+    }
+  });
+},{threshold:0.6});
+counters.forEach(c=>counterObserver.observe(c));
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show'); revObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.25});
+reveals.forEach(r=>revObs.observe(r));
+
+// Map pulses (mock districts)
+const map = document.getElementById('mapbox');
+const readout = document.getElementById('mapreadout');
+const districts = [
+  {name:'Bengaluru Urban',x:70,y:240, talent: 420000, speed: 42},
+  {name:'Tumakuru',x:180,y:180, talent: 76000, speed: 38},
+  {name:'Mysuru',x:120,y:320, talent: 93000, speed: 35},
+  {name:'Hubballi-Dharwad',x:260,y:140, talent: 86000, speed: 33},
+  {name:'Mangaluru',x:60,y:260, talent: 67000, speed: 31},
+  {name:'Ballari',x:340,y:170, talent: 54000, speed: 29},
+  {name:'Belagavi',x:220,y:100, talent: 80000, speed: 32},
+  {name:'Shivamogga',x:160,y:220, talent: 61000, speed: 30},
+  {name:'Kalaburagi',x:380,y:120, talent: 50000, speed: 28},
+];
+function addPulse(d){
+  const p=document.createElement('div');
+  p.className='pulse';
+  p.style.left = d.x+'px';
+  p.style.top = d.y+'px';
+  p.title = d.name;
+  p.addEventListener('mouseenter',()=>{
+    readout.innerHTML = `<strong>${d.name}</strong> • Verified Talent: ${d.talent.toLocaleString('en-IN')} • Hiring Speed Gain: ${d.speed}%`;
+  });
+  p.addEventListener('click',()=>{
+    readout.innerHTML = `<strong>${d.name}</strong> • Verified Talent: ${d.talent.toLocaleString('en-IN')} • Hiring Speed Gain: ${d.speed}%`;
+  });
+  map.appendChild(p);
+}
+districts.forEach(addPulse);
+
+// Make pulses focusable
+setTimeout(()=>{
+  map.querySelectorAll('.pulse').forEach(p=>p.tabIndex=0);
+}, 50);
+
+/* ============================
+      AUTH & ROLE SYSTEM
+============================ */
+
+if(!localStorage.getItem("UTIP_USERS"))
+  localStorage.setItem("UTIP_USERS", JSON.stringify([]));
+if(!localStorage.getItem("UTIP_STUDENT_DATA"))
+  localStorage.setItem("UTIP_STUDENT_DATA", JSON.stringify({}));
+
+function openAuth(role){
+  document.getElementById("authOverlay").style.display="flex";
+  showLogin();
+  if(role){
+    document.getElementById("loginRole").value = role;
+  }
+}
+function closeAuth(){ document.getElementById("authOverlay").style.display="none"; }
+
+function showRegister(){
+  document.getElementById("authTitle").textContent = "Register (Prototype)";
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("registerForm").style.display="block";
+}
+function showLogin(){
+  document.getElementById("authTitle").textContent = "Login";
+  document.getElementById("loginForm").style.display="block";
+  document.getElementById("registerForm").style.display="none";
+}
+
+/* UTID GENERATOR: UTID-KA-XXXXXX */
+function generateUTID(){
+  return "UTID-KA-" + Math.floor(Math.random()*899999 + 100000);
+}
+
+/* UPDATE LOGIN INFO (TOP RIGHT) */
+function updateLoginInfo(){
+  const infoEl = document.getElementById("loginInfo");
+  if(!infoEl) return;
+
+  const activeStr = localStorage.getItem("UTIP_ACTIVE");
+  if(!activeStr){
+    infoEl.style.display = "none";
+    infoEl.innerHTML = "";
+    showPublic();
+    return;
+  }
+  const u = JSON.parse(activeStr);
+  infoEl.style.display = "flex";
+  infoEl.innerHTML = `
+    <span>Signed in as <strong>${u.username}</strong></span>
+    <span>• ${u.role.toUpperCase()}</span>
+    ${u.utid ? `<span>• ${u.utid}</span>` : ""}
+    <a onclick="logout()" style="margin-left:4px;cursor:pointer;text-decoration:underline;color:#E9F2FF;">Logout</a>
+  `;
+}
+
+/* SHOW PUBLIC SHELL / HIDE PANELS */
+function hideAllPanels(){
+  document.getElementById("publicShell").style.display="none";
+  document.getElementById("studentPanel").style.display="none";
+  document.getElementById("collegePanel").style.display="none";
+  document.getElementById("employerPanel").style.display="none";
+  document.getElementById("governmentPanel").style.display="none";
+  document.getElementById("agencyPanel").style.display="none";
+}
+function showPublic(){
+  hideAllPanels();
+  document.getElementById("publicShell").style.display="block";
+}
+
+/* REGISTER USER */
+function registerUser(){
+  const user = document.getElementById("regUser").value.trim();
+  const pass = document.getElementById("regPass").value;
+  const type = document.getElementById("regType").value;
+
+  if(!user || !pass || !type){
+    alert("Fill all fields!");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("UTIP_USERS"));
+
+  if(users.find(u => u.username === user)){
+    alert("Username already exists!");
+    return;
+  }
+
+  const newUser = {
+    username:user,
+    password:pass,
+    role:type,
+    utid: type === "student" ? generateUTID() : null
+  };
+
+  users.push(newUser);
+  localStorage.setItem("UTIP_USERS", JSON.stringify(users));
+
+  alert("Registered Successfully (Prototype)!");
+  showLogin();
+}
+
+/* LOGIN USER */
+function loginUser(){
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value;
+  const role = document.getElementById("loginRole").value;
+
+  let users = JSON.parse(localStorage.getItem("UTIP_USERS"));
+  let found = users.find(u => u.username === user && u.password === pass && u.role === role);
+
+  if(!found){
+    alert("Invalid credentials or role!");
+    return;
+  }
+
+  localStorage.setItem("UTIP_ACTIVE", JSON.stringify(found));
+
+  updateLoginInfo();
+  closeAuth();
+  routeToRole(found);
+}
+
+/* ROUTE TO ROLE PANEL */
+function routeToRole(user){
+  hideAllPanels();
+  if(user.role === "student"){
+    document.getElementById("studentPanel").style.display="block";
+    loadStudentProfile();
+  } else if(user.role === "college"){
+    document.getElementById("collegePanel").style.display="block";
+    renderCollegeStudents();
+  } else if(user.role === "employer"){
+    document.getElementById("employerPanel").style.display="block";
+  } else if(user.role === "government"){
+    document.getElementById("governmentPanel").style.display="block";
+  } else if(user.role === "agency"){
+    document.getElementById("agencyPanel").style.display="block";
+  } else {
+    showPublic();
+  }
+}
+
+/* LOGOUT */
+function logout(){
+  localStorage.removeItem("UTIP_ACTIVE");
+  updateLoginInfo();
+  showPublic();
+  openAuth();
+}
+
+/* STUDENT PANEL VIEW SWITCH */
+function setStudentView(view){
+  document.querySelectorAll('#studentPanel .panel-view').forEach(v=>v.classList.remove('active'));
+  const el = document.getElementById("studentView-"+view);
+  if(el) el.classList.add('active');
+  if(view === 'insights') renderSkillGap();
+  if(view === 'resume') renderResume();
+  if(view === 'portfolio') renderPortfolio();
+}
+
+/* COLLEGE PANEL VIEW SWITCH */
+function setCollegeView(view){
+  document.querySelectorAll('#collegePanel .panel-view').forEach(v=>v.classList.remove('active'));
+  const el = document.getElementById("collegeView-"+view);
+  if(el) el.classList.add('active');
+}
+
+/* EMPLOYER PANEL VIEW SWITCH */
+function setEmployerView(view){
+  document.querySelectorAll('#employerPanel .panel-view').forEach(v=>v.classList.remove('active'));
+  const el = document.getElementById("employerView-"+view);
+  if(el) el.classList.add('active');
+}
+
+/* GOV PANEL VIEW SWITCH */
+function setGovView(view){
+  document.querySelectorAll('#governmentPanel .panel-view').forEach(v=>v.classList.remove('active'));
+  const el = document.getElementById("govView-"+view);
+  if(el) el.classList.add('active');
+}
+
+/* AGENCY PANEL VIEW SWITCH */
+function setAgencyView(view){
+  document.querySelectorAll('#agencyPanel .panel-view').forEach(v=>v.classList.remove('active'));
+  const el = document.getElementById("agencyView-"+view);
+  if(el) el.classList.add('active');
+}
+
+/* COLLEGE: CREATE STUDENT ACCOUNT */
+function collegeCreateStudent(){
+  const usn = document.getElementById("col_stu_usn").value.trim();
+  const pass = document.getElementById("col_stu_pass").value.trim();
+  if(!usn || !pass){
+    alert("Enter USN and password!");
+    return;
+  }
+  let users = JSON.parse(localStorage.getItem("UTIP_USERS"));
+  if(users.find(u=>u.username===usn)){
+    alert("Student already exists!");
+    return;
+  }
+  const newStu = {
+    username:usn,
+    password:pass,
+    role:"student",
+    utid:generateUTID()
+  };
+  users.push(newStu);
+  localStorage.setItem("UTIP_USERS", JSON.stringify(users));
+  alert("Student account created: "+usn);
+  renderCollegeStudents();
+}
+
+function renderCollegeStudents(){
+  const listEl = document.getElementById("collegeStudentList");
+  if(!listEl) return;
+  let users = JSON.parse(localStorage.getItem("UTIP_USERS"));
+  const sts = users.filter(u=>u.role==="student");
+  if(!sts.length){
+    listEl.textContent = "No students created yet.";
+    return;
+  }
+  listEl.innerHTML = sts.map(s=>`<div>USN: <strong>${s.username}</strong> • UTID: <strong>${s.utid || '-'}</strong></div>`).join("");
+}
+
+/* ============================
+      STUDENT PROFILE / RESUME
+============================ */
+
+function getActiveUser(){
+  const s = localStorage.getItem("UTIP_ACTIVE");
+  return s ? JSON.parse(s) : null;
+}
+
+function saveStudentProfile(){
+  const u = getActiveUser();
+  if(!u || u.role!=="student"){
+    alert("No active student.");
+    return;
+  }
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  store[u.username] = {
+    ...(store[u.username] || {}),
+    name: document.getElementById("stu_name").value,
+    photo: document.getElementById("stu_photo").value,
+    email: document.getElementById("stu_email").value,
+    phone: document.getElementById("stu_phone").value,
+    address: document.getElementById("stu_address").value,
+    education: document.getElementById("stu_education").value,
+    work: document.getElementById("stu_work").value,
+    skills: document.getElementById("stu_skills").value,
+    certs: document.getElementById("stu_certs").value,
+    achievements: document.getElementById("stu_achievements").value,
+    badges: document.getElementById("stu_badges").value,
+    projects: document.getElementById("stu_projects").value,
+    languages: document.getElementById("stu_languages").value
+  };
+  localStorage.setItem("UTIP_STUDENT_DATA", JSON.stringify(store));
+  alert("Profile saved! Digital resume & portfolio updated.");
+  renderResume();
+  renderPortfolio();
+}
+
+function saveResumeTemplate(){
+  const u = getActiveUser();
+  if(!u || u.role!=="student") return;
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  if(!store[u.username]) store[u.username] = {};
+  store[u.username].template = document.getElementById("resumeTemplateSelect").value;
+  localStorage.setItem("UTIP_STUDENT_DATA", JSON.stringify(store));
+  renderResume();
+}
+
+function loadStudentProfile(){
+  const u = getActiveUser();
+  if(!u || u.role!=="student") return;
+
+  document.getElementById("studentUTIDDisplay").textContent = u.utid || "—";
+  document.getElementById("studentNameDisplay").textContent = u.username;
+
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  let d = store[u.username] || {};
+  document.getElementById("stu_name").value = d.name || "";
+  document.getElementById("stu_photo").value = d.photo || "";
+  document.getElementById("stu_email").value = d.email || "";
+  document.getElementById("stu_phone").value = d.phone || "";
+  document.getElementById("stu_address").value = d.address || "";
+  document.getElementById("stu_education").value = d.education || "";
+  document.getElementById("stu_work").value = d.work || "";
+  document.getElementById("stu_skills").value = d.skills || "";
+  document.getElementById("stu_certs").value = d.certs || "";
+  document.getElementById("stu_achievements").value = d.achievements || "";
+  document.getElementById("stu_badges").value = d.badges || "";
+  document.getElementById("stu_projects").value = d.projects || "";
+  document.getElementById("stu_languages").value = d.languages || "";
+
+  const tmplSel = document.getElementById("resumeTemplateSelect");
+  if(tmplSel) tmplSel.value = d.template || "minimal";
+
+  renderResume();
+  renderPortfolio();
+}
+
+function renderResume(){
+  const u = getActiveUser();
+  if(!u || u.role!=="student") return;
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  let d = store[u.username] || {};
+
+  const name = d.name || u.username;
+  const utid = u.utid || "UTID-KA-XXXXXX";
+  const usn = u.username;
+  const email = d.email || "";
+  const phone = d.phone || "";
+  const address = d.address || "";
+  const skills = d.skills || "";
+  const education = d.education || "";
+  const work = d.work || "";
+  const certs = d.certs || "";
+  const achievements = d.achievements || "";
+  const badges = d.badges || "";
+  const projects = d.projects || "";
+  const languages = d.languages || "";
+
+  const resumeEl = document.getElementById("resumePreview");
+  if(!resumeEl) return;
+
+  resumeEl.innerHTML = `
+    <div class="resume-header">
+      <div>
+        <div class="resume-title">${name}</div>
+        <div style="font-size:12px;margin-top:4px">
+          UTID: <strong>${utid}</strong> • USN: <strong>${usn}</strong><br/>
+          Email: ${email || '—'} • Phone: ${phone || '—'}<br/>
+          Address: ${address || '—'}
+        </div>
+      </div>
+      <div style="text-align:right;font-size:10px;color:#4b5563">
+        Integrity Score: (demo)<br/>
+        Verification Timeline: (college/employer verified)<br/>
+        Generated by UTIP • Roarstar AI
+      </div>
+    </div>
+
+    <div class="resume-section">
+      <h4>Summary</h4>
+      <p>A verified digital resume generated by UTIP — Karnataka Talent Grid. Data must be verified by the issuing college and employers before being treated as final.</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Education (Verified)</h4>
+      <p>${education || 'No education records added yet.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Work Experience</h4>
+      <p>${work || 'No work records added yet.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Skills & Skill Badges</h4>
+      <p>${skills || 'Add your skills in the portal.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Certifications</h4>
+      <p>${certs || 'No certifications listed yet.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Digital Achievement Badges</h4>
+      <p>${badges || 'Badges will appear here when awarded.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Achievements</h4>
+      <p>${achievements || 'No achievements added yet.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Projects</h4>
+      <p>${projects || 'No projects added yet.'}</p>
+    </div>
+
+    <div class="resume-section">
+      <h4>Languages</h4>
+      <p>${languages || 'Not specified.'}</p>
+    </div>
+
+    <div class="resume-section" style="border-top:1px solid #e5e7eb;margin-top:10px;padding-top:6px;font-size:10px;color:#6b7280">
+      <p><strong>Resume Rules:</strong> All core data must be verified by college / employer. No fraud allowed. Auto-syncs when new achievements are uploaded. Accessible (read-only) to students, colleges, employers, government and verification agencies.</p>
+    </div>
+  `;
+}
+
+/* PORTFOLIO PREVIEW */
+function renderPortfolio(){
+  const u = getActiveUser();
+  if(!u || u.role!=="student") return;
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  let d = store[u.username] || {};
+
+  const el = document.getElementById("portfolioPreview");
+  if(!el) return;
+
+  const name = d.name || u.username;
+  const utid = u.utid || "UTID-KA-XXXXXX";
+  const titleLine = (d.education || "").split('\n')[0] || "Student / Professional";
+  const photo = d.photo || "";
+  const badges = (d.badges || "").split(/[,;\n]+/).map(b=>b.trim()).filter(Boolean).slice(0,6);
+  const projects = (d.projects || "").split(/\n{2,}/).filter(Boolean).slice(0,3);
+  const skills = (d.skills || "").split(/[,;\n]+/).map(s=>s.trim()).filter(Boolean).slice(0,10);
+
+  let badgeHtml = badges.length 
+    ? badges.map(b=>`<span style="display:inline-block;border-radius:999px;padding:4px 8px;border:1px solid rgba(255,255,255,0.25);font-size:11px;margin:2px 4px 0 0">${b}</span>`).join("")
+    : "<p style='font-size:12px;color:#9CA3AF;margin:4px 0 0 0'>Badges will appear here.</p>";
+
+  let skillHtml = skills.length
+    ? skills.map(s=>`<span style="display:inline-block;border-radius:999px;padding:3px 8px;background:rgba(15,23,42,0.9);font-size:11px;margin:2px 4px 0 0">${s}</span>`).join("")
+    : "<p style='font-size:12px;color:#9CA3AF;margin:4px 0 0 0'>Add skills in Profile Builder.</p>";
+
+  let projHtml = projects.length
+    ? projects.map(p=>`<li style="margin-bottom:4px">${p}</li>`).join("")
+    : "<li style='font-size:12px;color:#9CA3AF'>Projects will appear here.</li>";
+
+  el.innerHTML = `
+    <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <div>
+        <div style="font-size:20px;font-weight:700">${name}</div>
+        <div style="font-size:12px;color:#9CA3AF;margin-top:2px">${titleLine}</div>
+        <div style="font-size:11px;color:#9CA3AF;margin-top:6px">
+          UTID: <strong>${utid}</strong><br>
+          USN: <strong>${u.username}</strong>
+        </div>
+      </div>
+      <div style="margin-left:auto">
+        ${photo 
+          ? `<img src="${photo}" alt="Profile photo" style="width:72px;height:72px;border-radius:18px;object-fit:cover;border:2px solid rgba(255,255,255,0.35)">`
+          : `<div style="width:72px;height:72px;border-radius:18px;border:1px dashed rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#9CA3AF">Photo</div>`}
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <h4 style="margin:0 0 4px 0;font-size:12px;text-transform:uppercase;color:#9CA3AF">Digital Achievement Badges</h4>
+      ${badgeHtml}
+    </div>
+
+    <div style="margin-top:14px">
+      <h4 style="margin:0 0 4px 0;font-size:12px;text-transform:uppercase;color:#9CA3AF">Skills Snapshot</h4>
+      ${skillHtml}
+    </div>
+
+    <div style="margin-top:14px">
+      <h4 style="margin:0 0 4px 0;font-size:12px;text-transform:uppercase;color:#9CA3AF">Highlighted Projects</h4>
+      <ul style="margin:4px 0 0 16px;padding:0;font-size:12px">${projHtml}</ul>
+    </div>
+  `;
+}
+
+/* SKILL GAP ANALYSIS (DEMO) */
+function renderSkillGap(){
+  const box = document.getElementById("skillGapBox");
+  if(!box) return;
+  const u = getActiveUser();
+  if(!u || u.role!=="student"){
+    box.innerHTML = `<p style="font-size:13px;color:#C9DAEF">Login as a student to view skill gap analysis.</p>`;
+    return;
+  }
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  let d = store[u.username] || {};
+  const skillsStr = (d.skills || "").toLowerCase();
+  if(!skillsStr){
+    box.innerHTML = `<p style="font-size:13px;color:#C9DAEF">Add your skills in Profile Builder to see a basic skill gap analysis.</p>`;
+    return;
+  }
+  const owned = skillsStr.split(/[,;\n]+/).map(s=>s.trim()).filter(Boolean);
+  const required = ["java","python","sql","react","communication","problem solving","data structures","algorithms"];
+  const missing = required.filter(r=>!owned.some(o=>o.includes(r)));
+  let difficulty = "Balanced";
+  if(missing.length >= 5) difficulty = "High Gap";
+  else if(missing.length >=3) difficulty = "Moderate Gap";
+  else difficulty = "Low Gap";
+
+  box.innerHTML = `
+    <h3 style="margin:0 0 6px 0;font-size:15px">My Skill Gap (Demo)</h3>
+    <p style="font-size:13px;margin:0 0 4px 0">Based on a generic tech benchmark list.</p>
+    <p style="font-size:13px;margin:0 0 4px 0"><strong>Missing / Weak Areas:</strong> ${missing.length ? missing.join(', ') : 'Looks good — low visible gap.'}</p>
+    <p style="font-size:13px;margin:0"><strong>Difficulty Level:</strong> ${difficulty}. Recommended: focus on one missing skill at a time and enroll via Learning Hub in future UTIP versions.</p>
+  `;
+}
+
+/* DOWNLOAD RESUME AS PDF — BEAUTIFUL LAYOUT */
+function downloadResumePDF(){
+  const u = getActiveUser();
+  if(!u || u.role!=="student"){
+    alert("Only students can download their resume.");
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  let d = store[u.username] || {};
+  const template = d.template || "minimal";
+
+  // Template colours
+  let borderColor = [180,180,180];
+  let headerColor = [31,41,55];
+  let accentColor = [17,24,39];
+
+  if(template === "modern"){
+    borderColor = [0,188,212];      // teal
+    headerColor = [15,23,42];       // slate
+    accentColor = [15,118,110];     // teal-700
+  } else if(template === "corporate"){
+    borderColor = [30,64,175];      // indigo
+    headerColor = [15,23,42];
+    accentColor = [30,64,175];
+  }
+
+  const doc = new jsPDF({unit:"pt",format:"a4"});
+  const lineHeight = 14;
+  const margin = 30;
+  const width = doc.internal.pageSize.getWidth();
+  const height = doc.internal.pageSize.getHeight();
+
+  // Border
+  doc.setLineWidth(1);
+  doc.setDrawColor(borderColor[0],borderColor[1],borderColor[2]);
+  doc.rect(margin, margin, width - margin*2, height - margin*2);
+
+  // Header band
+  doc.setFillColor(headerColor[0],headerColor[1],headerColor[2]);
+  doc.rect(margin, margin, width - margin*2, 42, "F");
+
+  // Header text
+  doc.setTextColor(255,255,255);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(13);
+  doc.text("UTIP • Karnataka Talent Grid", margin+10, margin+18);
+  doc.setFontSize(10);
+  doc.setFont("helvetica","normal");
+  doc.text("Unified Talent Identity • Verified Talent. Verified Future.", margin+10, margin+32);
+
+  // Main content
+  doc.setTextColor(17,24,39);
+  let y = margin + 60;
+  const left = margin + 10;
+
+  const name = d.name || u.username;
+  const utid = u.utid || "UTID-KA-XXXXXX";
+  const usn = u.username;
+  const email = d.email || "";
+  const phone = d.phone || "";
+  const address = d.address || "";
+  const skills = d.skills || "";
+  const education = d.education || "";
+  const work = d.work || "";
+  const certs = d.certs || "";
+  const achievements = d.achievements || "";
+  const badges = d.badges || "";
+  const projects = d.projects || "";
+  const languages = d.languages || "";
+
+  // Name & basic info
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(16);
+  doc.text(name, left, y);
+  doc.setFontSize(9);
+  doc.setFont("helvetica","normal");
+  y += lineHeight;
+  doc.text(`UTID: ${utid}   USN: ${usn}`, left, y);
+  y += lineHeight;
+  doc.text(`Email: ${email || '-'}   Phone: ${phone || '-'}`, left, y);
+  y += lineHeight;
+  doc.text(`Address: ${address || '-'}`, left, y);
+  y += lineHeight*1.5;
+
+  // Right-top meta
+  doc.setFontSize(8);
+  doc.setTextColor(100,116,139);
+  doc.text("Integrity Score: (demo)", width - margin - 190, margin + 70);
+  doc.text("Verification Timeline: (college / employer verified)", width - margin - 190, margin + 82);
+  doc.text("Generated by UTIP • Roarstar AI", width - margin - 190, margin + 94);
+  doc.setTextColor(17,24,39);
+
+  function addSection(title, text){
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(11);
+    doc.setTextColor(accentColor[0],accentColor[1],accentColor[2]);
+    doc.text(title, left, y);
+    y += lineHeight;
+    doc.setDrawColor(borderColor[0],borderColor[1],borderColor[2]);
+    doc.setLineWidth(0.5);
+    doc.line(left, y-10, width - margin - 10, y-10);
+    doc.setFont("helvetica","normal");
+    doc.setFontSize(9);
+    doc.setTextColor(17,24,39);
+    const split = doc.splitTextToSize(text || '-', width - margin*2 - 20);
+    doc.text(split, left, y);
+    y += lineHeight * (split.length + 0.4);
+  }
+
+  addSection("SUMMARY", "Verified digital resume generated by UTIP — Karnataka Talent Grid. Data should be verified by college and employers before final use.");
+  addSection("EDUCATION (VERIFIED)", education);
+  addSection("WORK EXPERIENCE", work);
+  addSection("SKILLS & SKILL BADGES", skills);
+  addSection("CERTIFICATIONS", certs);
+  addSection("DIGITAL ACHIEVEMENT BADGES", badges || "Badges such as Top Scorer, Best Project, Verified Internship and more will appear here.");
+  addSection("ACHIEVEMENTS", achievements);
+  addSection("PROJECTS", projects);
+  addSection("LANGUAGES", languages);
+  addSection("RESUME RULES", "All data must be verified by College / Employer. No fraud allowed. Auto-syncs when new achievements are uploaded. Viewable by student, colleges, employers, government and verification agencies. Only basic personal info can be manually edited by the student; core fields are sourced from verified records.");
+
+  doc.save(`${usn}_${utid}_UTIP_Resume.pdf`);
+}
+
+/* ============================
+      EMPLOYER SEARCH LOGIC
+============================ */
+
+function runEmployerSearch(){
+  const skill = (document.getElementById("emp_search_skill").value || "").toLowerCase().trim();
+  const loc = (document.getElementById("emp_search_location").value || "").toLowerCase().trim();
+  const utidInput = (document.getElementById("emp_search_utid").value || "").trim();
+  const resultsEl = document.getElementById("employerSearchResults");
+  if(!resultsEl) return;
+
+  let users = JSON.parse(localStorage.getItem("UTIP_USERS") || "[]");
+  const students = users.filter(u => u.role === "student");
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+
+  let matches = [];
+
+  if(utidInput){
+    const stu = students.find(s => (s.utid || "").toLowerCase() === utidInput.toLowerCase());
+    if(stu) matches.push(stu);
+  } else {
+    students.forEach(s=>{
+      const data = store[s.username] || {};
+      const skills = (data.skills || "").toLowerCase();
+      const projects = (data.projects || "").toLowerCase();
+      const address = (data.address || "").toLowerCase();
+      let ok = true;
+      if(skill && !(skills.includes(skill) || projects.includes(skill))) ok=false;
+      if(loc && !address.includes(loc)) ok=false;
+      if(ok) matches.push(s);
+    });
+  }
+
+  if(!matches.length){
+    resultsEl.innerHTML = `<p style="margin:0">No matching candidates found in demo data.</p>`;
+    return;
+  }
+
+  resultsEl.innerHTML = matches.map(m=>{
+    const data = store[m.username] || {};
+    const name = data.name || m.username;
+    let skillPreview = (data.skills || '').split(/[,;\n]+/).map(s=>s.trim()).filter(Boolean).slice(0,5).join(', ');
+    return `<div class="card" style="margin-top:8px;font-size:13px">
+      <h4 style="font-size:14px;margin:0 0 4px 0">${name}</h4>
+      <p style="margin:0 0 4px 0"><strong>UTID:</strong> ${m.utid||'-'} • <strong>USN:</strong> ${m.username}</p>
+      <p style="margin:0 0 6px 0"><strong>Skills:</strong> ${skillPreview || 'Not provided'}</p>
+      <button class="btn" style="font-size:11px;padding:6px 10px" onclick="viewStudentResumeAsEmployer('${m.username}')">View Digital Resume</button>
+    </div>`;
+  }).join("");
+}
+
+function viewStudentResumeAsEmployer(usn){
+  let users = JSON.parse(localStorage.getItem("UTIP_USERS") || "[]");
+  let uRec = users.find(u=>u.username===usn && u.role==="student");
+  if(!uRec){
+    alert("Student not found.");
+    return;
+  }
+  let store = JSON.parse(localStorage.getItem("UTIP_STUDENT_DATA") || "{}");
+  let d = store[usn] || {};
+  const name = d.name || usn;
+  const utid = uRec.utid || "UTID-KA-XXXXXX";
+  const email = d.email || "";
+  const skills = d.skills || "";
+  const education = d.education || "";
+  const work = d.work || "";
+
+  const resultsEl = document.getElementById("employerSearchResults");
+  if(!resultsEl) return;
+
+  resultsEl.innerHTML = `
+    <div class="card" style="font-size:13px">
+      <h3 style="margin-top:0">${name}</h3>
+      <p><strong>UTID:</strong> ${utid} • <strong>USN:</strong> ${usn}</p>
+      <p><strong>Email:</strong> ${email || '-'}</p>
+      <p><strong>Education:</strong><br>${(education||'').replace(/\n/g,'<br>')}</p>
+      <p><strong>Work Experience:</strong><br>${(work||'').replace(/\n/g,'<br>')}</p>
+      <p><strong>Skills:</strong><br>${(skills||'').replace(/\n/g,'<br>')}</p>
+      <button class="btn" style="margin-top:6px;font-size:11px;padding:6px 10px" onclick="runEmployerSearch()">Back to results</button>
+    </div>
+  `;
+}
+
+/* ============================
+      ROARSTAR AI ASSISTANT
+============================ */
+
+function toggleAI(){
+  const panel = document.getElementById("aiPanel");
+  panel.style.display = panel.style.display==="flex" ? "none" : "flex";
+}
+function sendAIMessage(){
+  const input = document.getElementById("aiInput");
+  const text = input.value.trim();
+  if(!text) return;
+  const body = document.getElementById("aiBody");
+  const meMsg = document.createElement("div");
+  meMsg.className = "ai-msg me";
+  meMsg.innerHTML = `<span>${text}</span>`;
+  body.appendChild(meMsg);
+
+  const botMsg = document.createElement("div");
+  botMsg.className = "ai-msg bot";
+
+  // Simple canned responses based on keywords for demo
+  let reply = "I’m a UI demo right now. In production, I will be backed by Roarstar AI cloud.";
+  if(/student/i.test(text)) reply = "Students should log in with their USN and password issued by their college, then use Profile Builder to generate the Digital Resume & Portfolio.";
+  else if(/college|university/i.test(text)) reply = "Colleges manage student accounts, verify records and track alumni from the College Panel.";
+  else if(/employer|company/i.test(text)) reply = "Employers can use the Employer Panel to search verified talent using skill/location filters or UTID, and view Digital Resumes.";
+  else if(/utid/i.test(text)) reply = "UTID is a unique ID in the format UTID-KA-XXXXXX, generated by UTIP for each verified talent.";
+  else if(/resume|cv/i.test(text)) reply = "Digital Resume is auto-generated from your profile and can be downloaded as a styled PDF from the Student Panel using different templates.";
+  else if(/portfolio/i.test(text)) reply = "Portfolio Preview in the Student Panel shows a one-page layout with your photo, badges, skills and highlighted projects.";
+  else if(/skill gap|gap/i.test(text)) reply = "The My Skill Gap view (Student → Career Insights) compares your skills text with a generic industry list. In future, Roarstar Mentor AI will use real hiring data for personalised analysis.";
+  else if(/career|mentor|coach/i.test(text)) reply = "Roarstar Mentor AI will act as your career coach — helping with roadmap, skill planning, resume polishing and mock interviews.";
+
+  botMsg.innerHTML = `<span>${reply}</span>`;
+  body.appendChild(botMsg);
+  body.scrollTop = body.scrollHeight;
+  input.value = "";
+}
+
+/* ============================
+      ON LOAD
+============================ */
+
+window.addEventListener('load', () => {
+  updateLoginInfo();
+  showPublic();
+  openAuth(); // Login first, as requested
+});
+</script>
+</body>
+</html>
